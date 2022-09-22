@@ -2,29 +2,205 @@
 <html lang="ru">
 	<head>
 		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Доска</title>
 	</head>
 	<body>
+		
 		<div class="InterfaceBox">
-			<div class="InterfaceTools">
+			<input type="radio" name="InterfaceSensor" class="hide" id="InterfaceToolIconBoxTriangleSensor">
+					
+			<label for="InterfaceToolIconBoxTriangleSensor" class="InterfaceSensor">
+				<p class="hide">НУ И ЧО ты суда лезишь</p>
+			</label>
+			<div class="InterfaceTools" id="Tools">
 				<div class="InterfaceToolsBox">
-					<i class="fa-solid fa-pen InterfaceToolIcon"></i>
+					<i class="fa-solid fa-pen InterfaceToolIcon" id="ToolsPencil" onclick="ToolType('pencil')"></i>
+					<img src="img/triangle.svg" class="InterfaceToolIconTriangle" aria-label="Более Вариантов"></i>
+					<input type="radio" class="InterfaceToolsBoxTriangleSensor  hide" name="InterfaceSensor" id="pencil">
+					
+					<label for="pencil" class="InterfaceToolsBoxTriangleSensor">
+					</label>
+					<div class="InterfaceToolsBoxMoreTools" style="width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center;">
+						<div class="InterfaceToolsBoxColorRadial" id="ColorRadialPencil"></div>
+						<p class="InterfaceToolsBoxColor" id="ColorPencil">#000000</p>
+					</div>
 				</div>
 				<div class="InterfaceToolsBox">
-					<i class="fa-solid fa-eraser InterfaceToolIcon"></i>
+					<i class="fa-solid fa-eraser InterfaceToolIcon" id="ToolsPencil" onclick="ToolType('eraser')"></i>
+					<img src="img/triangle.svg" class="InterfaceToolIconTriangle" aria-label="Более Вариантов"></i>
+					<input type="radio" class="InterfaceToolsBoxTriangleSensor hide" name="InterfaceSensor" id="eraser">
+					
+					<label for="eraser" class="InterfaceToolsBoxTriangleSensor" >
+					</label>
+					<div class="InterfaceToolsBoxMoreTools" style="width: 100px; height: 100px">
+						
+					</div>
 				</div>
 				<div class="InterfaceToolsBox">
 					<i class="fa-solid fa-fill InterfaceToolIcon"></i>
+					<img src="img/triangle.svg" class="InterfaceToolIconTriangle" aria-label="Более Вариантов"></i>
+					<input type="radio" class="InterfaceToolsBoxTriangleSensor hide" name="InterfaceSensor" id="fill">
+					
+					<label for="fill" class="InterfaceToolsBoxTriangleSensor" >
+					</label>
+					<div class="InterfaceToolsBoxMoreTools" style="width: 100px; height: 100px">
+						
+					</div>
 				</div>
 				<div class="InterfaceToolsBox">
 					<i class="fa-solid fa-hand InterfaceToolIcon"></i>
+					<img src="img/triangle.svg" class="InterfaceToolIconTriangle" aria-label="Более Вариантов"></i>
+					<input type="radio" class="InterfaceToolsBoxTriangleSensor hide" name="InterfaceSensor" id="hand">
+					
+					<label for="hand" class="InterfaceToolsBoxTriangleSensor" >
+					</label>
+					<div class="InterfaceToolsBoxMoreTools" style="width: 100px; height: 100px">
+						
+					</div>
 				</div>
 				<div class="InterfaceToolsBox">
 					<i class="fa-solid fa-lock InterfaceToolIcon"></i>
+					<img src="img/triangle.svg" class="InterfaceToolIconTriangle" aria-label="Более Вариантов"></i>
+					<input type="radio" class="InterfaceToolsBoxTriangleSensor hide" name="InterfaceSensor" id="lock">
+					
+					<label for="lock" class="InterfaceToolsBoxTriangleSensor" >
+					</label>
+					<div class="InterfaceToolsBoxMoreTools" style="width: 100px; height: 100px">
+						
+					</div>
 				</div>
+				<div class="InterfaceDragging" id="dragble" >
+					
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+					<!-- group 2 -->
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+					<!-- group 3 -->
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+					<hr class="InterfaceDraggingButton">
+				</div>
+
 			</div>
-		
+			
 		</div>
+		<div class="PainterBody">
+			<canvas class="PainterBodyCanvas" width="1000%" height="1000%" id="PainterBodyCanvas"></canvas>		
+		</div>
+		<!-- Script Menu -->
+		<script>
+			var ToolT = "pencil"
+			var Tools = document.getElementById("Tools")
+			var MovingEl = document.getElementById("dragble")
+			var pageX = 0
+			var pageY = 0
+			let dragMode = false;
+            MovingEl.addEventListener('mousedown', function (e) {
+                dragMode = true;
+            });
+            document.addEventListener('mouseup', function (e) {
+                dragMode = false;
+            });
+    
+			function ToolType(name) {
+				ToolT = name
+				console.log(ToolT)
+			}
+			
+    
+            document.addEventListener('mousemove', function (e) {
+			
+				
+
+
+
+                if (dragMode) {
+                    //Tools.style.left = e.clientX - 25 + 'px';
+					var MaxHeight = window.innerHeight - Tools.offsetHeight
+					let shiftY = e.clientY - Tools.offsetHeight;
+					Tools.style.top = e.clientY - Tools.offsetHeight + 50 + 'px';
+					if (Tools.offsetTop < 0) {
+						Tools.style.top = 0;
+					}else if (Tools.offsetTop > MaxHeight) {
+						Tools.style.top = window.innerHeight -Tools.offsetHeight + 'px';
+					}
+				}
+            });
+
+		</script>
+		
+		<!-- Colors -->
+		<script>
+			var color = "#000000"
+			var ColorText = document.getElementById("ColorPencil")
+			var ColorRadial = document.getElementById("ColorRadialPencil")
+			document.addEventListener('DOMContentLoaded', function() {
+				ColorRadial.addEventListener('click', function() {
+					(new EyeDropper()).open().then(function(result) {
+						console.log(result.sRGBHex)
+					 	color = result.sRGBHex;
+						ColorText.innerText = color
+						ColorText.style.background = color
+					});
+				});
+			});
+		</script>
+
+		<script>
+			var canvas = document.getElementById('PainterBodyCanvas');
+   			var ctx = canvas.getContext('2d');
+			var paint = false
+			canvas.addEventListener('mousedown', function (e) {
+                paint = true;
+            });
+            canvas.addEventListener('mouseup', function (e) {
+                paint = false;
+            });
+			canvas.addEventListener('click', function (e) {
+				ToolsAccess(e)
+            });
+    
+    
+            canvas.addEventListener('mousemove', function (e) {
+				// color upgrade
+				
+
+
+                if (paint) {
+					ToolsAccess(e)
+				}
+            });
+
+			function ToolsAccess(e) {
+				
+				switch (ToolT) {
+						case "pencil":
+							ctx.beginPath();
+							ctx.arc(e.pageX,e.pageY, 10, 0, 2 * Math.PI);
+							ctx.fillStyle = color
+							ctx.fill()
+							break;
+						case "eraser":
+							ctx.beginPath();
+							ctx.arc(e.pageX,e.pageY, 10, 0, 2 * Math.PI);
+							ctx.fillStyle = "#ffffff"
+							ctx.fill()
+							break;
+					
+						default:
+							ctx.beginPath();
+							ctx.arc(e.pageX,e.pageY, 10, 0, 2 * Math.PI);
+							ctx.fillStyle = color
+							ctx.fill()
+							break;
+					}
+				
+			}
+		</script>
 	</body>
 </html>
